@@ -1,0 +1,456 @@
+{
+  "version": "1.0",
+  "groups": [
+    {
+      "id": "g1",
+      "title": "Configuración",
+      "children": [
+        {
+          "id": "s11",
+          "title": "Seguridad",
+          "children": [
+            {
+              "id": "i111",
+              "title": "Gestión de usuarios",
+              "route": "configuracion/seguridad/users"
+            },
+            {
+              "id": "i112",
+              "title": "Roles de usuario",
+              "route": "configuracion/seguridad/roles"
+            },
+            {
+              "id": "i113",
+              "title": "Catálogo de permisos",
+              "route": "configuracion/seguridad/permisos"
+            },
+            {
+              "id": "i114",
+              "title": "Administración avanzada",
+              "route": "configuracion/seguridad/admin"
+            },
+            {
+              "id": "i115",
+              "title": "Cambio de clave",
+              "route": "configuracion/seguridad/cambio-clave"
+            }
+          ]
+        },
+        {
+          "id": "i12",
+          "title": "Puntos de venta",
+          "route": "configuracion/puntos-venta"
+        },
+        {
+          "id": "i13",
+          "title": "Atributos de puntos",
+          "route": "configuracion/puntos-atributos"
+        },
+        {
+          "id": "i14",
+          "title": "Datos de la empresa",
+          "route": "configuracion/empresas"
+        },
+        {
+          "id": "i15",
+          "title": "Sucursales",
+          "route": "configuracion/sucursales"
+        },
+        {
+          "id": "i16",
+          "title": "Catálogo de productos",
+          "route": "configuracion/catalogo-productos"
+        },
+        {
+          "id": "i17",
+          "title": "Atributos de catálogo",
+          "route": "configuracion/atributos-producto"
+        },
+        {
+          "id": "i18",
+          "title": "Utilitarios",
+          "route": "configuracion/utilitarios"
+        }
+      ]
+    },
+    {
+      "id": "g2",
+      "title": "Procesos",
+      "children": [
+        {
+          "id": "i21",
+          "title": "Ingresos y salidas",
+          "route": "procesos/historial-movimientos"
+        },
+        {
+          "id": "i22",
+          "title": "Atributos diversos",
+          "route": "procesos/atributos-diverso"
+        },
+        {
+          "id": "i23",
+          "title": "Reimprimir comprobantes",
+          "route": "procesos/reimprimir-comprobantes"
+        },
+        {
+          "id": "i24",
+          "title": "Detalle de documentos",
+          "route": "procesos/detalle-documentos"
+        },
+        {
+          "id": "i25",
+          "title": "Documento por cliente",
+          "route": "procesos/documento-cliente"
+        },
+        {
+          "id": "i26",
+          "title": "Transferencias",
+          "route": "procesos/transferencias"
+        },
+        {
+          "id": "i27",
+          "title": "Solicitudes de anulación",
+          "route": "procesos/aprobaciones"
+        }
+      ]
+    },
+    {
+      "id": "g3",
+      "title": "Reportes",
+      "children": [
+        {
+          "id": "i31",
+          "title": "Correlatividad",
+          "route": "reportes/correlatividad"
+        },
+        {
+          "id": "i32",
+          "title": "Reporte de compras",
+          "route": "reportes/compras"
+        },
+        {
+          "id": "i33",
+          "title": "Reporte de ventas",
+          "route": "reportes/ventas"
+        },
+        {
+          "id": "i34",
+          "title": "Reporte de cajas",
+          "route": "reportes/cajas"
+        },
+        {
+          "id": "i35",
+          "title": "Kardex",
+          "route": "reportes/kardex"
+        },
+        {
+          "id": "i36",
+          "title": "Stock valorizado",
+          "route": "reportes/stock-valorizado"
+        },
+        {
+          "id": "i37",
+          "title": "Reporte de descuentos",
+          "route": "reportes/descuento"
+        },
+        {
+          "id": "i38",
+          "title": "Comprobantes anulados",
+          "route": "reportes/comprobantes-anulados"
+        },
+        {
+          "id": "i39",
+          "title": "Notas de crédito",
+          "route": "reportes/nota-credito"
+        },
+        {
+          "id": "i310",
+          "title": "Documentos anulados",
+          "route": "reportes/documentos-anulados"
+        }
+      ]
+    },
+    {
+      "id": "g4",
+      "title": "Compras",
+      "children": [
+        {
+          "id": "i41",
+          "title": "Orden de compra",
+          "route": "compra/orden"
+        },
+        {
+          "id": "i42",
+          "title": "Registrar compra",
+          "route": "compra/registrar"
+        },
+        {
+          "id": "i43",
+          "title": "Intercambio de productos",
+          "route": "compra/intercambio"
+        },
+        {
+          "id": "i44",
+          "title": "Proveedores",
+          "route": "compra/proveedores"
+        },
+        {
+          "id": "i45",
+          "title": "Cuentas por pagar",
+          "route": "compra/pagos-pendientes"
+        },
+        {
+          "id": "i46",
+          "title": "Estado de cuenta",
+          "route": "compra/estado-cuenta"
+        }
+      ]
+    },
+    {
+      "id": "g5",
+      "title": "Ventas",
+      "children": [
+        {
+          "id": "i51",
+          "title": "Listado de ventas",
+          "route": "venta/listado"
+        },
+        {
+          "id": "i52",
+          "title": "Cotización de venta",
+          "route": "venta/cotizaciones"
+        },
+        {
+          "id": "i53",
+          "title": "Notas de venta",
+          "route": "venta/notas-venta"
+        },
+        {
+          "id": "i54",
+          "title": "Registrar venta",
+          "route": "venta/venta"
+        },
+        {
+          "id": "i55",
+          "title": "Anular comprobante",
+          "route": "venta/anulaciones"
+        },
+        {
+          "id": "i56",
+          "title": "Notas de crédito de venta",
+          "route": "venta/notas-credito"
+        },
+        {
+          "id": "i57",
+          "title": "Clientes",
+          "route": "venta/clientes"
+        },
+        {
+          "id": "i58",
+          "title": "Devoluciones",
+          "route": "venta/devoluciones"
+        },
+        {
+          "id": "s59",
+          "title": "Descuentos",
+          "children": [
+            {
+              "id": "i591",
+              "title": "Gestión de beneficios",
+              "route": "venta/descuentos/lista"
+            },
+            {
+              "id": "i592",
+              "title": "Convenios",
+              "route": "venta/descuentos/convenio"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "g6",
+      "title": "Facturación",
+      "children": [
+        {
+          "id": "i61",
+          "title": "Comprobantes electrónicos",
+          "route": "venta/comprobante-electronico"
+        },
+        {
+          "id": "i62",
+          "title": "Resumen de boletas",
+          "route": "facturacion/resumenes"
+        },
+        {
+          "id": "i63",
+          "title": "Resumen de bajas",
+          "route": "facturacion/anulaciones"
+        }
+      ]
+    },
+    {
+      "id": "g7",
+      "title": "Caja",
+      "children": [
+        {
+          "id": "i71",
+          "title": "Arqueo de caja",
+          "route": "caja/arqueos"
+        },
+        {
+          "id": "i72",
+          "title": "Caja chica",
+          "route": "caja/chica"
+        },
+        {
+          "id": "i73",
+          "title": "Caja general",
+          "route": "caja/general"
+        },
+        {
+          "id": "i74",
+          "title": "Medios de pago",
+          "route": "caja/medio-pago"
+        },
+        {
+          "id": "i75",
+          "title": "Diferencia de costos",
+          "route": "caja/diferencia-costos"
+        },
+        {
+          "id": "i76",
+          "title": "Gestión de cuentas",
+          "route": "caja/cuentas"
+        }
+      ]
+    },
+    {
+      "id": "g8",
+      "title": "Almacén",
+      "children": [
+        {
+          "id": "i81",
+          "title": "Gestión de almacenes",
+          "route": "almacen/almacenes"
+        },
+        {
+          "id": "i82",
+          "title": "Productos",
+          "route": "almacen/productos"
+        }
+      ]
+    },
+    {
+      "id": "g9",
+      "title": "Documentos",
+      "children": [
+        {
+          "id": "i91",
+          "title": "Plantillas",
+          "route": "documentos"
+        },
+        {
+          "id": "i92",
+          "title": "Bloques de plantillas",
+          "route": "documentos/bloques"
+        },
+        {
+          "id": "i93",
+          "title": "Puntos de emisión",
+          "route": "documentos/puntos"
+        },
+        {
+          "id": "i94",
+          "title": "Formatos de impresión",
+          "route": "documentos/formatos"
+        }
+      ]
+    }
+  ],
+  "roles": {
+    "Ventas": {
+      "label": "Ventas",
+      "scenario": "Trabajas como vendedor(a) en una tienda. Registras ventas, atiendes clientes y revisas tus comprobantes.",
+      "groups": [
+        "g5",
+        "g6",
+        "g3",
+        "g8"
+      ],
+      "tasks": [
+        "venta/venta",
+        "venta/cotizaciones",
+        "venta/clientes",
+        "venta/listado",
+        "venta/devoluciones",
+        "venta/descuentos/lista",
+        "venta/comprobante-electronico",
+        "reportes/ventas"
+      ]
+    },
+    "Compras": {
+      "label": "Compras",
+      "scenario": "Trabajas en el área de compras. Generas órdenes de compra, registras compras y consultas a los proveedores.",
+      "groups": [
+        "g4",
+        "g3",
+        "g8"
+      ],
+      "tasks": [
+        "compra/orden",
+        "compra/registrar",
+        "compra/proveedores",
+        "compra/pagos-pendientes",
+        "compra/estado-cuenta",
+        "compra/intercambio",
+        "reportes/compras",
+        "almacen/productos"
+      ]
+    },
+    "Almacen": {
+      "label": "Almacén",
+      "scenario": "Trabajas en el almacén. Controlas los productos, los ingresos y salidas, y las transferencias entre almacenes.",
+      "groups": [
+        "g8",
+        "g2",
+        "g3"
+      ],
+      "tasks": [
+        "almacen/productos",
+        "almacen/almacenes",
+        "procesos/historial-movimientos",
+        "procesos/transferencias",
+        "procesos/detalle-documentos",
+        "reportes/kardex",
+        "reportes/stock-valorizado",
+        "procesos/atributos-diverso"
+      ]
+    },
+    "Administrador": {
+      "label": "Administrador",
+      "scenario": "Eres el administrador del sistema. Gestionas usuarios, roles, permisos y la configuración de la empresa.",
+      "groups": [
+        "g1",
+        "g2",
+        "g3",
+        "g4",
+        "g5",
+        "g6",
+        "g7",
+        "g8",
+        "g9"
+      ],
+      "tasks": [
+        "configuracion/seguridad/users",
+        "configuracion/seguridad/roles",
+        "configuracion/seguridad/permisos",
+        "configuracion/sucursales",
+        "configuracion/puntos-venta",
+        "documentos/formatos",
+        "caja/arqueos",
+        "reportes/cajas"
+      ]
+    }
+  }
+}
