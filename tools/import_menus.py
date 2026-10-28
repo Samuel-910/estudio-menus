@@ -39,12 +39,24 @@ ROUTE_GROUP = _route_groups()
 norm = lambda r: (r or "").strip().lstrip("/")
 
 
+def _unicos(rutas):
+    """Quita repetidos conservando el orden."""
+    return list(dict.fromkeys(rutas))
+
+
 def to_compact(entry, bar_size=3):
     if "groups" in entry:  # ya viene en formato compacto
-        return {"bar": entry.get("bar", [])[:bar_size], "groups": entry["groups"]}
-    groups, scored = [], []
+        bar = _unicos(norm(r) for r in entry.get("bar", []))
+        juntos = {}  # grupos repetidos se juntan en orden (igual que la app)
+        for g in entry["groups"]:
+            juntos.setdefault(g["id"], []).extend(norm(r) for r in g["items"])
+        groups = [{"id": gid, "items": _unicos(it)} for gid, it in juntos.items()]
+        return {"bar": bar[:bar_size], "groups": groups}
+
+    groups, scored, bar_oe3 = {}, {}, []
     for g in entry.get("menu", []):
         items = []
+
         def walk(n):
             if n.get("children"):
                 for c in n["children"]:
@@ -53,16 +65,27 @@ def to_compact(entry, bar_size=3):
                 r = norm(n.get("ruta") or n.get("route"))
                 if r in ROUTE_GROUP:
                     items.append(r)
-                    scored.append((float(n.get("score", 0) or 0), r))
+                    scored[r] = max(scored.get(r, 0.0), float(n.get("score", 0) or 0))
+
         for c in g.get("children", []):
             walk(c)
-        if not items:
+        # La barra de sugerencias del OE3 NO es un grupo del menú: sus rutas ya
+        # están en sus grupos reales. Tratarla como grupo duplicaba la barra y
+        # creaba un grupo falso (p. ej. dos "g3") que desordenaba Reportes.
+        if g.get("tipo") == "BARRA_SMART" or g.get("id") == 999:
+            bar_oe3 = items
             continue
-        gid = ROUTE_GROUP[items[0]]  # el id se deduce de las rutas (evita desajustes de numeración)
-        groups.append({"id": gid, "items": items})
-    scored.sort(key=lambda x: -x[0])
-    bar = [r for s, r in scored if s > 0][:bar_size]
-    return {"bar": bar, "groups": groups}
+        for r in items:
+            gid = ROUTE_GROUP[r]  # el id se deduce de las rutas (evita desajustes de numeración)
+            groups.setdefault(gid, [])
+            if r not in groups[gid]:
+                groups[gid].append(r)
+
+    if bar_oe3:
+        bar = _unicos(bar_oe3)
+    else:  # sin barra explícita: las rutas con mayor score
+        bar = [r for r, s in sorted(scored.items(), key=lambda x: -x[1]) if s > 0]
+    return {"bar": bar[:bar_size], "groups": [{"id": gid, "items": it} for gid, it in groups.items()]}
 
 
 def main():

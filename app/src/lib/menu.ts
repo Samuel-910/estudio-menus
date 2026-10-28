@@ -41,12 +41,13 @@ export function adaptedMenu(role: RoleKey, adapted: AdaptedMenu | null): MenuMod
     .map((g, i) => ({ g, i, k: gpos.get(g.id) ?? Number.MAX_SAFE_INTEGER }))
     .sort((a, b) => (a.k - b.k) || (a.i - b.i))
     .map(({ g }) => {
-      const items = adapted.groups?.find((x) => x.id === g.id)?.items ?? [];
+      // Si un grupo viniera repetido, se juntan sus ítems en orden (el primero manda)
+      const items = (adapted.groups ?? []).filter((x) => x.id === g.id).flatMap((x) => x.items);
       const pos = new Map(items.map((r, i) => [r, i] as [string, number]));
       return { ...g, children: sortNodes(g.children, pos) };
     });
 
-  const bar = (adapted.bar ?? [])
+  const bar = [...new Set(adapted.bar ?? [])] // sin accesos repetidos
     .map((r) => routeIndex[r])
     .filter((info) => info && allowed.has(info.groupId))
     .slice(0, 3)
