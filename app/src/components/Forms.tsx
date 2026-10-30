@@ -64,23 +64,37 @@ export function Screening({ onSubmit, busy }: { onSubmit: (d: Record<string, unk
   const set = (k: string) => (v: string) => setD((p) => ({ ...p, [k]: v }));
   const keys = ['adult', 'regular_computer_use', 'used_this_erp', 'age_range', 'gender', 'education', 'occupation', 'computer_freq', 'mgmt_software_experience'];
   const complete = keys.every((k) => d[k]);
+  const [confirming, setConfirming] = useState(false);
 
-  const submit = () => onSubmit({
+  // Respuestas que excluyen del estudio (mismos criterios que submit_screening en la base de datos)
+  const exclusions = [
+    d.adult === 'no' && 'Indicaste que tienes menos de 18 años.',
+    d.regular_computer_use === 'no' && 'Indicaste que no usas una computadora con regularidad.',
+    d.used_this_erp === 'si' && 'Indicaste que ya usaste el sistema «ERP Artículos» de este estudio.',
+  ].filter(Boolean) as string[];
+
+  // Si cambia alguna respuesta, se vuelve a pedir confirmación
+  const setAnswer = (k: string) => (v: string) => { setConfirming(false); set(k)(v); };
+
+  const send = () => onSubmit({
     adult: d.adult === 'si',
     regular_computer_use: d.regular_computer_use === 'si',
     used_this_erp: d.used_this_erp === 'si',
     age_range: d.age_range, gender: d.gender, education: d.education, occupation: d.occupation,
     computer_freq: d.computer_freq, mgmt_software_experience: d.mgmt_software_experience,
   });
+  const submit = () => (exclusions.length && !confirming ? setConfirming(true) : send());
 
   return (
     <div className="card wide">
       <h2>Antes de empezar</h2>
       <p className="muted">Unas preguntas breves. Tus respuestas no te identifican.</p>
 
-      <div className="q"><div className="ql">1. ¿Tienes 18 años o más?</div><Radio name="adult" options={YES_NO} value={d.adult} onChange={set('adult')} /></div>
-      <div className="q"><div className="ql">2. ¿Usas una computadora con regularidad (al menos una vez por semana)?</div><Radio name="rcu" options={YES_NO} value={d.regular_computer_use} onChange={set('regular_computer_use')} /></div>
-      <div className="q"><div className="ql">3. ¿Has usado antes el sistema «ERP Artículos» de este estudio?</div><Radio name="erp" options={YES_NO} value={d.used_this_erp} onChange={set('used_this_erp')} /></div>
+      <div className="q"><div className="ql">1. ¿Tienes 18 años o más?</div><Radio name="adult" options={YES_NO} value={d.adult} onChange={setAnswer('adult')} /></div>
+      <div className="q"><div className="ql">2. ¿Usas una computadora con regularidad (al menos una vez por semana)?</div><Radio name="rcu" options={YES_NO} value={d.regular_computer_use} onChange={setAnswer('regular_computer_use')} /></div>
+      <div className="q"><div className="ql">3. ¿Has usado antes el sistema «ERP Artículos» de este estudio?</div>
+        <div className="muted small">Se refiere solo al sistema de prueba de esta investigación, no a otros sistemas de ventas o inventario.</div>
+        <Radio name="erp" options={YES_NO} value={d.used_this_erp} onChange={setAnswer('used_this_erp')} /></div>
       <div className="q"><div className="ql">4. Edad</div><Radio name="age" options={opts(AGE_RANGES)} value={d.age_range} onChange={set('age_range')} /></div>
       <div className="q"><div className="ql">5. Género</div><Radio name="gender" options={opts(GENDERS)} value={d.gender} onChange={set('gender')} /></div>
       <div className="q"><div className="ql">6. Nivel de estudios</div><Radio name="edu" options={opts(EDUCATION)} value={d.education} onChange={set('education')} /></div>
@@ -88,9 +102,24 @@ export function Screening({ onSubmit, busy }: { onSubmit: (d: Record<string, unk
       <div className="q"><div className="ql">8. ¿Con qué frecuencia usas una computadora?</div><Radio name="cf" options={opts(COMPUTER_FREQ)} value={d.computer_freq} onChange={set('computer_freq')} /></div>
       <div className="q"><div className="ql">9. Experiencia con sistemas de gestión (ventas, inventario, facturación, etc.)</div><Radio name="mx" options={MGMT_EXPERIENCE} value={d.mgmt_software_experience} onChange={set('mgmt_software_experience')} /></div>
 
-      <div className="actions">
-        <button className="btn primary" disabled={!complete || busy} onClick={submit} data-action="screening">Continuar</button>
-      </div>
+      {confirming && (
+        <div className="exclusion-warning" role="alertdialog" aria-labelledby="excl-title">
+          <h3 id="excl-title">Revisa tus respuestas</h3>
+          <ul>{exclusions.map((e) => <li key={e}>{e}</li>)}</ul>
+          <p>Con {exclusions.length > 1 ? 'estas respuestas' : 'esta respuesta'} <b>no podrás participar</b> en el estudio y
+            no podrás volver a responder. Si fue un error, corrígela antes de continuar.</p>
+          <div className="actions">
+            <button className="btn" onClick={() => setConfirming(false)} data-action="screening-fix">Corregir mis respuestas</button>
+            <button className="btn danger" disabled={busy} onClick={send} data-action="screening-confirm">Sí, son correctas</button>
+          </div>
+        </div>
+      )}
+
+      {!confirming && (
+        <div className="actions">
+          <button className="btn primary" disabled={!complete || busy} onClick={submit} data-action="screening">Continuar</button>
+        </div>
+      )}
     </div>
   );
 }

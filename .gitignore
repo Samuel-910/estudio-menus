@@ -1,0 +1,4 @@
+# Claves locales de los scripts de tools/ (service_role): NUNCA al repositorio
+tools/.env
+tools/export/
+tools/__pycache__/

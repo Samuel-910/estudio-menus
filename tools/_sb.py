@@ -10,6 +10,19 @@ import sys
 import urllib.error
 import urllib.request
 
+def _cargar_env_local():
+    """Si existe tools/.env (ignorado por git), carga SUPABASE_URL y SUPABASE_SERVICE_KEY desde ahí."""
+    p = os.path.join(os.path.dirname(os.path.abspath(__file__)), ".env")
+    if os.path.exists(p):
+        with open(p, encoding="utf-8") as f:
+            for linea in f:
+                linea = linea.strip()
+                if linea and not linea.startswith("#") and "=" in linea:
+                    k, v = linea.split("=", 1)
+                    os.environ.setdefault(k.strip(), v.strip().strip('"').strip("'"))
+
+
+_cargar_env_local()
 URL = os.environ.get("SUPABASE_URL", "").rstrip("/")
 KEY = os.environ.get("SUPABASE_SERVICE_KEY", "")
 

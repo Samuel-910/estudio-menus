@@ -73,6 +73,8 @@ def main():
                 "elemento_texto": (e["payload"] or {}).get("source", "menu"),
                 "tipo_evento": "clic_navegacion",
                 "condition": e["condition"],
+                # True = era la función pedida en la tarea; False = visita equivocada
+                "es_objetivo": (e["payload"] or {}).get("is_target"),
             }
             f.write(json.dumps(rec, ensure_ascii=False) + "\n")
             n += 1
